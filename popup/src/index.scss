@@ -1,0 +1,18 @@
+@import './theme.scss';
+@import './font.scss';
+
+body {
+  font-family: 'ClipperSoleil', sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // overflow: hidden;
+  height: 100%;
+
+  color: var(--st__neutral-fg1);
+  background-color: var(--st__neutral-bg1);
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
