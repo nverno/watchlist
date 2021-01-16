@@ -30,6 +30,7 @@ const Search = ({ fetchSearchResults }) => {
         placeholder="Search..."
         value={query}
         onChange={(e) => setQuery(e.currentTarget.value)}
+        autoFocus
       />
     </form>
   );

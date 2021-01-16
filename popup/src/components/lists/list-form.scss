@@ -1,0 +1,18 @@
+.list-form-container {}
+
+.list-form {
+  display: flex;
+
+  input:focus {
+    background-color: var(--st__neutral-hover-bg1);
+  }
+}
+
+.list-form-controls {
+  display: block;
+  padding-left: 10px;
+
+  button:not(:first-child) {
+    margin-left: 5px;
+  }
+}
