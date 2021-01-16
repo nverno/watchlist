@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { loadChromeOptions } from './util/chrome';
+import { loadSettings } from './util/chrome';
 import configureStore from './store/store';
 
 import App from './components/App';
@@ -17,11 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = {};
 
   // loading from chrome storage will trigger reducers instead
-  if (!loadChromeOptions() && localStorage.stocks) {
+  if (!loadSettings() && localStorage.stocks) {
     preloadedState = {
       ...preloadedState,
       entities: {
         stocks: JSON.parse(localStorage.getItem('stocks')),
+        lists: JSON.parse(localStorage.getItem('lists')),
         keys: JSON.parse(localStorage.getItem('keys')),
       },
     };

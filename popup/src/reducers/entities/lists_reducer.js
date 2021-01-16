@@ -2,6 +2,7 @@ import {
   RENAME_LIST,
   RECEIVE_LIST,
   REMOVE_LIST,
+  RECEIVE_LISTS,
 } from '../../actions/list_actions';
 
 export default (state = {}, action) => {
@@ -9,6 +10,9 @@ export default (state = {}, action) => {
   let res;
 
   switch (action.type) {
+    case RECEIVE_LISTS:
+      return action.lists;
+
     case RECEIVE_LIST:
       res = action.list.items;
       if (state[action.name])
