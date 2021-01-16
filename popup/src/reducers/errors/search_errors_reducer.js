@@ -8,7 +8,7 @@ export default (state = [], action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_SEARCH_ERRORS:
-      return action.errors;
+      return [action.errors.message];
 
     case RECEIVE_SEARCH_RESULTS:
     case CLEAR_SEARCH_RESULTS:

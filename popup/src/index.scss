@@ -55,3 +55,7 @@ button, input, select, textarea {
   animation-name: fadeIn;
   animation: fadeIn 0.5s ease-out;
 }
+
+.error-message {
+  color: var(--st__semantic-error-base);
+}

@@ -6,7 +6,11 @@ import { clearSearchResults } from '../../actions/search_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const { stocks, funds } = state.entities.searchResults;
-  return { stocks, funds };
+  return {
+    errors: state.errors.search,
+    stocks,
+    funds,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -63,8 +67,20 @@ const SearchMenuSection = ({ name, results, ...props }) => {
   );
 };
 
-const SearchMenu = ({ stocks, funds, ...props }) => {
-  const menu = !(stocks || funds) ? (
+const SearchMenuErrors = ({ errors }) => {
+  return (
+    <ul>
+      {errors.map((error, idx) => (
+        <li className="error-message">{error}</li>
+      ))}
+    </ul>
+  );
+};
+
+const SearchMenu = ({ errors, stocks, funds, ...props }) => {
+  const menu = errors.length ? (
+    <SearchMenuErrors errors={errors} />
+  ) : !(stocks || funds) ? (
     <></>
   ) : (stocks && stocks.length) || (funds && funds.length) ? (
     <div className="search-results">

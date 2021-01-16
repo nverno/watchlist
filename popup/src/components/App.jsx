@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import './app.scss';
 import Search from './search/Search';
 import SearchMenu from './search/SearchMenu';
+import WatchList from './watchlist/WatchList';
 
 const App = ({ searchResults }) => {
   return (
@@ -29,7 +30,12 @@ const App = ({ searchResults }) => {
         </Row>
 
         <Row>
-          <h3>Tickers list</h3>
+          <h3>Stock chart ???</h3>
+        </Row>
+
+        <Row>
+          <h3>WatchList</h3>
+          <WatchList />
         </Row>
       </Container>
     </>
