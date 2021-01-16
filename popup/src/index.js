@@ -8,6 +8,10 @@ import configureStore from './store/store';
 import App from './components/App';
 import './index.scss';
 
+// BEGIN testing
+import * as search from './actions/search_actions';
+// END testing
+
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = {};
 
@@ -17,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ...preloadedState,
       entities: {
         stocks: JSON.parse(localStorage.getItem('stocks')),
+        keys: JSON.parse(localStorage.getItem('keys')),
       },
     };
   }
@@ -35,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // BEGIN testing
   window.store = store;
+  window.search = search;
   // END testing
 });
 

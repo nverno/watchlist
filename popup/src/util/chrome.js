@@ -1,5 +1,5 @@
 var chrome;
-const chromeOptions = ['stocks'];
+const chromeOptions = ['stocks', 'keys'];
 
 export const loadChromeOptions = () => {
   if (chrome && chrome.storage) {
