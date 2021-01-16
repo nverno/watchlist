@@ -5,9 +5,9 @@ import { Container, Row, Col } from 'reactstrap';
 import './app.scss';
 import Search from './search/Search';
 import SearchMenu from './search/SearchMenu';
-import WatchList from './watchlist/WatchList';
+import Lists from './lists/Lists';
 
-const App = ({ searchResults }) => {
+const App = () => {
   return (
     <>
       <Container fluid>
@@ -30,12 +30,13 @@ const App = ({ searchResults }) => {
         </Row>
 
         <Row>
-          <h3>Stock chart ???</h3>
+          <h3>Stock charttt</h3>
         </Row>
 
-        <Row>
-          <h3>WatchList</h3>
-          <WatchList />
+        <Row fluid>
+          <section className="lists-section">
+            <Lists />
+          </section>
         </Row>
       </Container>
     </>

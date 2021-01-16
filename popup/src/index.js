@@ -9,6 +9,7 @@ import App from './components/App';
 import './index.scss';
 
 // BEGIN testing
+import _ from 'lodash';
 import * as search from './actions/search_actions';
 // END testing
 
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // BEGIN testing
   window.store = store;
   window.search = search;
+  window._ = _;
   // END testing
 });
 
