@@ -6,6 +6,7 @@ import { loadChromeOptions } from './util/chrome';
 import configureStore from './store/store';
 
 import App from './components/App';
+import './index.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = {};

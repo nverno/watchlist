@@ -1,0 +1,19 @@
+.search-section {
+  padding: 10px 20px 10px 0;
+  width: 100%;
+
+  header {
+    display: flex;
+    padding: 0 40px 0 40px;
+    align-items: center;
+    justify-content: space-between;
+
+    // input { 
+    //   flex-basis: 90%;
+    // }
+  }
+}
+
+.cancel-button {
+  margin-left: 22px;
+}

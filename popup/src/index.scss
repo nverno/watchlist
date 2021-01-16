@@ -1,3 +1,4 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
 @import './theme.scss';
 @import './font.scss';
 
@@ -13,6 +14,44 @@ body {
   background-color: var(--st__neutral-bg1);
 }
 
+button, input, select, textarea {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  appearance: none;  
+}
+
 ::-webkit-scrollbar {
   display: none;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation: fadeIn 0.5s ease-out;
 }
