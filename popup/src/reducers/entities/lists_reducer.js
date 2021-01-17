@@ -15,7 +15,7 @@ export default (state = {}, action) => {
       return action.lists;
 
     case RECEIVE_LIST:
-      res = action.list.items;
+      res = action.list.items.map((item) => item.toUpperCase());
       if (state[action.list.name])
         res = [...new Set(res.concat(state[action.list.name]))];
       res = Object.assign({}, state, { [action.list.name]: res });

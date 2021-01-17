@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       entities: {
         stocks: JSON.parse(localStorage.getItem('stocks')),
         lists: JSON.parse(localStorage.getItem('lists')),
+      },
+      settings: {
         keys: JSON.parse(localStorage.getItem('keys')),
       },
       ui: JSON.parse(localStorage.getItem('ui')),

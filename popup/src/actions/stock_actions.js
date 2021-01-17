@@ -18,11 +18,7 @@ export const receiveBatchQuotes = (data) => ({
   data,
 });
 
-export const fetchQuotes = (
-  symbols,
-  params,
-  apiKey = 'pk_005c73aeb7394bc391d44e0baddc1a0a'
-) => (dispatch) => {
+export const fetchQuotes = (symbols, params, apiKey) => (dispatch) => {
   return StocksAPI.fetchQuotes(symbols, params, apiKey)
     .then((results) => dispatch(receiveBatchQuotes(results)))
     .catch((errors) => dispatch(receiveApiErrors(errors)));

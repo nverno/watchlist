@@ -5,18 +5,39 @@ import { BiDotsHorizontalRounded } from 'react-icons/bi';
 
 import ListCell from './ListCell';
 import { closeList, openList } from '../../actions/list_actions';
+import { fetchQuotes } from '../../actions/stock_actions';
 
 const mapStateToProps = (state, ownProps) => ({
   open: Boolean(state.ui.lists[ownProps.name]),
   items: state.entities.lists[ownProps.name],
+  apiKey: state.settings.keys['iex'],
 });
 
 const mapDispatchToProps = (dispatch, { name }) => ({
   closeList: () => dispatch(closeList(name)),
   openList: () => dispatch(openList(name)),
+  fetchQuotes: (symbols, params, apiKey) =>
+    dispatch(fetchQuotes(symbols, params, apiKey)),
 });
 
-const List = ({ name, items, open, openList, closeList }) => {
+const List = ({
+  name,
+  items,
+  open,
+  openList,
+  closeList,
+  fetchQuotes,
+  apiKey,
+}) => {
+  React.useEffect(() => {
+    if (apiKey && open) fetchQuotes(items, {}, apiKey);
+  }, []);
+
+  if (!apiKey) {
+    // FIXME: handle missing key- link to input
+    console.warn('Must have iex API key to access quote data!');
+  }
+
   const caret = (
     <span className="list-caret">
       {!open ? <IoIosArrowUp size={24} /> : <IoIosArrowDown size={24} />}
@@ -25,8 +46,11 @@ const List = ({ name, items, open, openList, closeList }) => {
 
   const toggleList = () => {
     if (open) closeList();
-    // TODO: fetch list data here??
-    else openList();
+    else {
+      // FIXME: only fetch necessary data
+      apiKey && fetchQuotes(items, {}, apiKey);
+      openList();
+    }
   };
 
   return (
