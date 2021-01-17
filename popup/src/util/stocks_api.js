@@ -4,7 +4,12 @@
 import _ from 'lodash';
 
 import * as AvAPI from './av_api';
+import * as IexAPI from './iex_api';
 import { splitByMatches } from './utils';
+
+// TODO: add updateQuotes(oldQuotes, interval) to only refresh
+// quotes that are stale (and current time is during trading/extended hours)
+export const fetchQuotes = IexAPI.fetchQuotes;
 
 export const formatSearchResults = (query, results) => {
   const [stocks, funds] = _.partition(

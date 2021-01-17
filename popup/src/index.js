@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { loadSettings } from './util/chrome';
+import { loadSettings } from './util/settings';
 import configureStore from './store/store';
 
 import App from './components/App';
@@ -12,13 +12,16 @@ import './index.scss';
 import _ from 'lodash';
 import * as search from './actions/search_actions';
 import * as list from './actions/list_actions';
+import * as stocks from './actions/stock_actions';
 // END testing
+
+var chrome;
 
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState = {};
 
   // loading from chrome storage will trigger reducers instead
-  if (!loadSettings() && localStorage.stocks) {
+  if (!(chrome && chrome.storage)) {
     preloadedState = {
       ...preloadedState,
       entities: {
@@ -29,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  // TODO: if chrome extension, sync settings after store has been
+  // initialized
   const store = configureStore(preloadedState);
   const root = document.getElementById('root');
 
@@ -46,6 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.search = search;
   window._ = _;
   window.list = list;
+  window.stocks = stocks;
+  window.loadSettings = loadSettings;
   // END testing
 });
 
