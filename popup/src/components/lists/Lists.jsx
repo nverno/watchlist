@@ -1,10 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import {
+  SortableHandle,
+  SortableContainer,
+  SortableElement,
+} from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 
 import List from './List';
 import NewListForm from './ListForm';
-import { removeList, createList } from '../../actions/list_actions';
+import {
+  removeList,
+  createList,
+  receiveLists,
+} from '../../actions/list_actions';
 import './lists.scss';
 
 const mapStateToProps = (state, _ownProps) => ({
@@ -14,10 +25,35 @@ const mapStateToProps = (state, _ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   removeList: (name) => dispatch(removeList(name)),
   createList: (name) => dispatch(createList(name)),
+  updateLists: (lists) => dispatch(receiveLists(lists)),
 });
 
-const Lists = ({ lists, removeList, createList }) => {
+const DragHandle = SortableHandle(() => (
+  <span className="drag-burger">
+    <GiHamburgerMenu size={24} color="var(--st__neutral-fg2)" />
+  </span>
+));
+
+const SortableItem = SortableElement(({ name }) => (
+  <List name={name} handle={<DragHandle />} />
+));
+
+const SortableList = SortableContainer(({ lists }) => {
+  return (
+    <div>
+      {lists.map(({ name }, idx) => (
+        <SortableItem key={`list-item-${name}`} index={idx} name={name} />
+      ))}
+    </div>
+  );
+});
+
+const Lists = ({ lists, removeList, createList, updateLists }) => {
   const [formOpen, setFormOpen] = React.useState(false);
+
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    updateLists(arrayMove(lists, oldIndex, newIndex));
+  };
 
   return (
     <>
@@ -42,9 +78,8 @@ const Lists = ({ lists, removeList, createList }) => {
             cancel={() => setFormOpen(false)}
           />
         )}
-        {Object.keys(lists).map((name, idx) => (
-          <List key={idx} name={name} />
-        ))}
+
+        <SortableList lists={lists} onSortEnd={onSortEnd} useDragHandle />
       </div>
     </>
   );

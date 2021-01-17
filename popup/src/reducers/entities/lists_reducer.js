@@ -5,31 +5,43 @@ import {
   REMOVE_LIST,
   RECEIVE_LISTS,
 } from '../../actions/list_actions';
+import { getList } from '../../selectors/lists';
 
-export default (state = {}, action) => {
+const removeList = (name, lists) => {
+  return lists.filter((list) => list.name !== name);
+};
+
+export default (state = [], action) => {
   Object.freeze(state);
-  let res;
+  let res, old;
 
   switch (action.type) {
     case RECEIVE_LISTS:
       return action.lists;
 
     case RECEIVE_LIST:
-      res = action.list.items.map((item) => item.toUpperCase());
-      if (state[action.list.name])
-        res = [...new Set(res.concat(state[action.list.name]))];
-      res = Object.assign({}, state, { [action.list.name]: res });
+      res = [...state];
+      let items = action.list.items.map((item) => item.toUpperCase());
+      if ((old = getList(action.list.name, state))) {
+        items = [...new Set(items.concat(old.items))];
+        old.items = items;
+      } else {
+        res.push({ name: action.list.name, items });
+      }
       break;
 
     case REMOVE_LIST:
-      res = Object.assign({}, state);
-      delete res[action.name];
+      res = removeList(action.name, state);
       break;
 
     case RENAME_LIST:
-      res = Object.assign({}, state);
-      res[action.newName] = Object.assign({}, res[action.oldName]);
-      delete res[action.oldName];
+      res = [...state];
+      for (const list of state) {
+        if (list.name === action.oldName) {
+          list.name = action.newName;
+          break;
+        }
+      }
       break;
 
     default:

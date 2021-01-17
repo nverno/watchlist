@@ -46,3 +46,8 @@ export const renameList = (newName, oldName) => ({
   newName,
   oldName,
 });
+
+export const updateList = (list) => ({
+  type: RECEIVE_LIST,
+  list,
+});
