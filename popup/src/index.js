@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lists: JSON.parse(localStorage.getItem('lists')),
         keys: JSON.parse(localStorage.getItem('keys')),
       },
+      ui: JSON.parse(localStorage.getItem('ui')),
     };
   }
 

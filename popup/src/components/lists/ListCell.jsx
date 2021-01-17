@@ -1,18 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state, ownProps) => ({
-  // quote: state.entities.quotes[ownProps.symbol],
+import { quotePercent, quotePrice, quoteClass } from '../../selectors/quotes';
+
+const mapStateToProps = (state, { symbol }) => ({
+  quote: state.entities.quotes[symbol],
 });
 
-const ListCell = ({ symbol }) => {
+const PercentChange = ({ quote }) => {
+  const cname = quoteClass(quote);
+  return <span className={cname}>{quotePercent(quote)}</span>;
+};
+
+const ListCell = ({ symbol, quote }) => {
   return (
     <div className="list-item">
       <span>{symbol.toUpperCase()}</span>
 
-      <div className="list-chart-container">chart</div>
+      <div className="list-chart-container">--chart--</div>
 
-      <div>quote</div>
+      <div className="quote-price">
+        <span>{quotePrice(quote)}</span>
+        <div style={{ height: '2px' }} />
+        <PercentChange quote={quote} />
+      </div>
     </div>
   );
 };

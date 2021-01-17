@@ -1,3 +1,4 @@
+import { saveSettings } from '../../util/settings';
 import {
   RECEIVE_OPEN_LIST,
   RECEIVE_CLOSE_LIST,
@@ -5,16 +6,22 @@ import {
 
 export default (state = {}, action) => {
   Object.freeze(state);
+  let res;
+
   switch (action.type) {
     case RECEIVE_OPEN_LIST:
-      return Object.assign({}, state, { [action.name]: true });
+      res = Object.assign({}, state, { [action.name]: true });
+      break;
 
     case RECEIVE_CLOSE_LIST:
-      let res = Object.assign({}, state);
+      res = Object.assign({}, state);
       delete res[action.name];
-      return res;
+      break;
 
     default:
       return state;
   }
+
+  saveSettings({ ui: { lists: res } });
+  return res;
 };
