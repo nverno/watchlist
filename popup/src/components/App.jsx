@@ -29,11 +29,9 @@ const App = () => {
           </section>
         </Row>
 
-        <Row>
-          <h3>Stock charttt</h3>
-        </Row>
+        <Row>{/* <h3>Stock charttt</h3> */}</Row>
 
-        <Row fluid>
+        <Row>
           <section className="lists-section">
             <Lists />
           </section>

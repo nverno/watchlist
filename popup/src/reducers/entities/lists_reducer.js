@@ -15,8 +15,8 @@ export default (state = {}, action) => {
 
     case RECEIVE_LIST:
       res = action.list.items;
-      if (state[action.name])
-        res = [...new Set(res.concat(state[action.name]))];
+      if (state[action.list.name])
+        res = [...new Set(res.concat(state[action.list.name]))];
       return Object.assign({}, state, { [action.list.name]: res });
 
     case REMOVE_LIST:

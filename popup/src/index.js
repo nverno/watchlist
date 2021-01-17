@@ -11,6 +11,7 @@ import './index.scss';
 // BEGIN testing
 import _ from 'lodash';
 import * as search from './actions/search_actions';
+import * as list from './actions/list_actions';
 // END testing
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.store = store;
   window.search = search;
   window._ = _;
+  window.list = list;
   // END testing
 });
 

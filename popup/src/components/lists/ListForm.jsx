@@ -34,10 +34,10 @@ export const ListForm = ({ listName, action, cancel, errors }) => {
 
         <div className="list-form-controls">
           <button type="submit">
-            <ImArrowRight color="var(--st__semantic-success-base)" />
+            <ImArrowRight size={18} color="var(--st__semantic-success-base)" />
           </button>
           <button type="button" onClick={cancel}>
-            <AiOutlineClose color="var(--st__semantic-error-base)" />
+            <AiOutlineClose size={18} color="var(--st__semantic-error-base)" />
           </button>
         </div>
       </form>

@@ -2,17 +2,30 @@
 
 .list-form {
   display: flex;
+  padding: 5px 0 5px;
+  justify-content: space-between;
 
-  input:focus {
+  input {
+    width: 80%;
+  }
+
+  input:focus, input:hover {
     background-color: var(--st__neutral-hover-bg1);
   }
 }
 
 .list-form-controls {
   display: block;
-  padding-left: 10px;
+  // padding-left: 10px;
+
+  button:first-child {
+    // border-right: 1px solid var(--st__neutral-hover-bg1);
+  }
 
   button:not(:first-child) {
-    margin-left: 5px;
+    // margin-left: 20px;
+    // border-left: 1px solid var(--st__neutral-hover-bg1);
+    padding-left: 20px;
+    padding-right: 2px;
   }
 }

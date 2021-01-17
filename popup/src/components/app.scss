@@ -1,16 +1,13 @@
 .search-section {
-  padding: 10px 20px 10px 0;
+  padding: 10px 0 10px 0;
+  display: block;
   width: 100%;
 
   header {
     display: flex;
-    padding: 0 40px 0 40px;
+    padding: 4px 24px 0px;  
     align-items: center;
     justify-content: space-between;
-
-    // input { 
-    //   flex-basis: 90%;
-    // }
   }
 }
 
@@ -20,4 +17,7 @@
 
 .lists-section {
   display: block;
+  width: 100%;
+  background-color: var(--st__neutral-bg1);
+  padding: 4px 24px 0px;  
 }
