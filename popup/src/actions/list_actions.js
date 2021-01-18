@@ -8,6 +8,13 @@ export const RECEIVE_OPEN_LIST = 'RECEIVE_OPEN_LIST';
 export const RECEIVE_CLOSE_LIST = 'RECEIVE_CLOSE_LIST';
 export const RECEIVE_LIST_ERRORS = 'RECEIVE_LIST_ERRORS';
 export const CLEAR_LIST_ERRORS = 'CLEAR_LIST_ERRORS';
+export const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
+
+export const removeListItem = (list, item) => ({
+  type: REMOVE_LIST_ITEM,
+  list,
+  item,
+});
 
 export const clearListErrors = () => ({
   type: CLEAR_LIST_ERRORS,
@@ -38,7 +45,7 @@ export const removeList = (name) => ({
   name,
 });
 
-export const addToList = (name, items) => ({
+export const addToList = ({ name }, items) => ({
   type: RECEIVE_LIST,
   list: {
     name,

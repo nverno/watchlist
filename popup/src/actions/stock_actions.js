@@ -23,3 +23,11 @@ export const fetchQuotes = (symbols, params, apiKey) => (dispatch) => {
     .then((results) => dispatch(receiveBatchQuotes(results)))
     .catch((errors) => dispatch(receiveApiErrors(errors)));
 };
+
+export const maybeFetchQuotes = (symbols, quotes, params, apiKey) => (
+  dispatch
+) => {
+  return StocksAPI.maybeFetchQuotes(symbols, quotes, params, apiKey)
+    .then((results) => results && dispatch(receiveBatchQuotes(results)))
+    .catch((errors) => dispatch(receiveApiErrors(errors)));
+};

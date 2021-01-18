@@ -4,7 +4,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 
-import EditListForm from './EditListForm';
+import EditListForm from './forms/EditListForm';
 import ListDropdown from './ListDropdown';
 import ListCell from './ListCell';
 import {
@@ -13,23 +13,25 @@ import {
   updateList,
   removeList,
 } from '../../actions/list_actions';
-import { fetchQuotes } from '../../actions/stock_actions';
-import { getList } from '../../selectors/lists';
+import { maybeFetchQuotes } from '../../actions/stock_actions';
+// import { getList } from '../../selectors/lists';
 
-const mapStateToProps = (state, { name }) => {
-  const lst = getList(name, state.entities.lists);
+const mapStateToProps = (state, { list }) => {
+  // const list = getList(name, state.entities.lists);
   return {
-    open: Boolean(state.ui.lists[name]),
-    items: (lst && lst.items) || [],
+    open: Boolean(state.ui.lists[list.name]),
+    // items: (list && list.items) || [],
+    quotes: state.entities.quotes,
     apiKey: state.settings.keys['iex'],
   };
 };
 
-const mapDispatchToProps = (dispatch, { name }) => ({
+const mapDispatchToProps = (dispatch, { list: { name } }) => ({
   closeList: () => dispatch(closeList(name)),
   openList: () => dispatch(openList(name)),
-  fetchQuotes: (symbols, params, apiKey) =>
-    dispatch(fetchQuotes(symbols, params, apiKey)),
+  maybeFetchQuotes: (symbols, quotes, params, apiKey) => {
+    return dispatch(maybeFetchQuotes(symbols, quotes, params, apiKey));
+  },
   updateList: (items) => dispatch(updateList({ name, items })),
   removeList: () => dispatch(removeList(name)),
 });
@@ -49,20 +51,24 @@ const SortableList = SortableContainer(({ items }) => {
 });
 
 const List = ({
-  name,
+  list,
   handle,
-  items,
+  quotes,
   open,
   openList,
   closeList,
   updateList,
-  fetchQuotes,
+  maybeFetchQuotes,
   removeList,
   apiKey,
   validate,
 }) => {
+  const { name, items } = list;
+
   React.useEffect(() => {
-    if (apiKey && open) fetchQuotes(items, {}, apiKey);
+    // FIXME: when multiple lists are open, concurrent fetches can be
+    // made for the same symbols (only a problem on initial load?)
+    if (apiKey && open) maybeFetchQuotes(items, quotes, {}, apiKey);
   }, []);
 
   const [editing, setEditing] = React.useState(false);
@@ -81,8 +87,7 @@ const List = ({
   const toggleList = () => {
     if (open) closeList();
     else {
-      // FIXME: only fetch necessary data
-      apiKey && fetchQuotes(items, {}, apiKey);
+      apiKey && maybeFetchQuotes(items, quotes, {}, apiKey);
       openList();
     }
   };
@@ -91,6 +96,7 @@ const List = ({
     updateList(arrayMove(items, oldIndex, newIndex));
   };
 
+  if (!list) return null;
   return (
     <React.Fragment key={name}>
       <div className="list-item list-header-cell">
@@ -109,9 +115,9 @@ const List = ({
 
         <div className="list-controls">
           <ListDropdown
-            name={name}
+            list={list}
             removeList={removeList}
-            editList={() => setEditing(true)}
+            toggleEdit={() => setEditing(true)}
           />
           <div onClick={toggleList}>{caret}</div>
         </div>

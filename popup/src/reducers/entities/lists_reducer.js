@@ -4,7 +4,7 @@ import {
   RECEIVE_LIST,
   REMOVE_LIST,
   RECEIVE_LISTS,
-  receiveListErrors,
+  REMOVE_LIST_ITEM,
 } from '../../actions/list_actions';
 import { getList } from '../../selectors/lists';
 
@@ -29,6 +29,12 @@ export default (state = [], action) => {
       } else {
         res.push({ name: action.list.name, items });
       }
+      break;
+
+    case REMOVE_LIST_ITEM:
+      res = [...state];
+      old = getList(action.list.name, state);
+      old.items = old.items.filter((ele) => ele !== action.item);
       break;
 
     case REMOVE_LIST:

@@ -10,9 +10,8 @@ import {
 import arrayMove from 'array-move';
 
 import List from './List';
-import NewListForm from './ListForm';
+import NewListForm from './forms/ListForm';
 import {
-  removeList,
   createList,
   receiveLists,
   validateList,
@@ -25,7 +24,6 @@ const mapStateToProps = (state, _ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeList: (name) => dispatch(removeList(name)),
   createList: (name) => dispatch(createList(name)),
   updateLists: (lists) => dispatch(receiveLists(lists)),
   validateList: (newList, lists) => {
@@ -44,18 +42,18 @@ const DragHandle = SortableHandle(() => (
   </span>
 ));
 
-const SortableItem = SortableElement(({ name, validate }) => (
-  <List name={name} handle={<DragHandle />} validate={validate} />
+const SortableItem = SortableElement(({ list, validate }) => (
+  <List list={list} handle={<DragHandle />} validate={validate} />
 ));
 
 const SortableList = SortableContainer(({ lists, validate }) => {
   return (
     <div>
-      {lists.map(({ name }, idx) => (
+      {lists.map((list, idx) => (
         <SortableItem
-          key={`list-item-${name}`}
+          key={`list-item-${list.name}`}
           index={idx}
-          name={name}
+          list={list}
           validate={validate}
         />
       ))}
@@ -63,13 +61,7 @@ const SortableList = SortableContainer(({ lists, validate }) => {
   );
 });
 
-const Lists = ({
-  lists,
-  removeList,
-  createList,
-  updateLists,
-  validateList,
-}) => {
+const Lists = ({ lists, createList, updateLists, validateList }) => {
   const [formOpen, setFormOpen] = React.useState(false);
 
   const onSortEnd = ({ oldIndex, newIndex }) => {

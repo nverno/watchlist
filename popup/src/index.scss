@@ -87,3 +87,9 @@ button, input, select, textarea {
 .dropdown-item span {
   margin-right: 5px;
 }
+
+// inverse colors from body
+.modal-header, .modal-content, .modal-body {
+  color: var(--st__neutral-bg1);
+  background-color: var(--st__neutral-fg1);
+}

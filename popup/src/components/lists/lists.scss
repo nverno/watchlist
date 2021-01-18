@@ -91,7 +91,7 @@
 }
 
 .list-dropdown-toggle {
- &:focus, &:active {
+  &:focus, &:active {
     border: none;
     outline: none;
     box-shadow: none !important;
@@ -99,10 +99,4 @@
 }
 
 .list-dropdown-menu {
-}
-
-.list-edit-form {
-}
-.list-edit-form input {
-  background-color: var(--st__neutral-fg3);
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { clearListErrors, renameList } from '../../actions/list_actions';
+import { clearListErrors, renameList } from '../../../actions/list_actions';
+import './edit-list-form.scss';
 
 const mapStateToProps = (state, _ownProps) => ({
   errors: state.errors.lists,

@@ -1,0 +1,44 @@
+.list-modal {
+  color: var(--st__neutral-bg1);
+}
+
+.list-modal-toggle {
+  margin-right: 10px;
+
+  &:focus, &:active {
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.list-modal-body {
+  display: block;
+  align-items: center;
+  text-align: center;
+}
+
+.list-modal-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 40px 5px 40px;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--st__neutral-bg3);
+  &:hover {
+    color: var(--st__neutral-fg1);
+  }
+}
+
+.list-modal-item:nth-child(even) {
+  background-color: rgba(121,133,139,0.2);
+  &:hover {
+    background-color: rgba(121,133,139,0.7);
+  }
+}
+.list-modal-item:nth-child(odd) {
+  background-color: rgba(121,133,139,0.1);
+  &:hover {
+    background-color: rgba(121,133,139,0.7);
+  }
+}

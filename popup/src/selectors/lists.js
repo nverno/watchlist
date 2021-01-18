@@ -5,6 +5,6 @@ export const getList = (name, lists) => {
   return null;
 };
 
-export const removeList = (name, lists) => {
-  return lists.filter((list) => list.name !== name);
+export const listContains = (list, symbol) => {
+  return list.items.some((item) => item === symbol);
 };

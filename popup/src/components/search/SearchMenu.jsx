@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import './search-menu.scss';
+import ListSelectModal from '../lists/modal/ListSelectModal';
 import { setCurrent, clearCurrent } from '../../actions/current_symbol_actions';
 import { clearSearchResults } from '../../actions/search_actions';
 
@@ -19,7 +21,15 @@ const mapDispatchToProps = (dispatch) => ({
   clearSearchResults: () => dispatch(clearSearchResults()),
 });
 
-const SearchMenuItem = ({ value, symbol, name, type, region, ...props }) => {
+const SearchMenuItem = ({
+  value,
+  symbol,
+  name,
+  type,
+  region,
+  addable,
+  ...props
+}) => {
   const handleClick = (val) => {
     props.setCurrent(val);
     props.clearSearchResults();
@@ -30,7 +40,7 @@ const SearchMenuItem = ({ value, symbol, name, type, region, ...props }) => {
       className="search-result"
       value={value}
       role="option"
-      onClick={() => handleClick(value)}
+      /* onClick={() => handleClick(value)} */
     >
       <div className="search-result-symbol">
         <span>
@@ -50,18 +60,24 @@ const SearchMenuItem = ({ value, symbol, name, type, region, ...props }) => {
           ))}
         </span>
       </div>
+
+      {addable && (
+        <div className="search-result-controls">
+          <ListSelectModal symbol={value} />
+        </div>
+      )}
     </div>
   );
 };
 
-const SearchMenuSection = ({ name, results, ...props }) => {
+const SearchMenuSection = ({ name, results, addable, ...props }) => {
   return (
     <>
       <section>
         <h4>{name}</h4>
       </section>
       {results.map((result, idx) => (
-        <SearchMenuItem {...result} key={idx} {...props} />
+        <SearchMenuItem {...result} key={idx} addable={addable} {...props} />
       ))}
     </>
   );
@@ -85,7 +101,12 @@ const SearchMenu = ({ errors, stocks, funds, ...props }) => {
   ) : (stocks && stocks.length) || (funds && funds.length) ? (
     <div className="search-results">
       {stocks.length && (
-        <SearchMenuSection name={'Stocks'} results={stocks} {...props} />
+        <SearchMenuSection
+          addable
+          name={'Stocks'}
+          results={stocks}
+          {...props}
+        />
       )}
       {funds.length > 0 && (
         <SearchMenuSection name={'Funds'} results={funds} {...props} />

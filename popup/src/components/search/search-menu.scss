@@ -17,9 +17,13 @@
 }
 .search-result {
   display: flex;
+  // justify-content: space-between;
 
   &:hover {
     background-color: var(--st__neutral-bg2);
+    .add-symbol-icon {
+      fill: var(--st__primary-base);
+    }
   }
 }
 .search-result-symbol {
@@ -32,4 +36,10 @@
 }
 .search-match {
   color: var(--st__primary-base);
+}
+
+.search-result-controls {
+  flex-basis: 20%;
+  flex-grow: 1;
+  text-align: right;
 }
