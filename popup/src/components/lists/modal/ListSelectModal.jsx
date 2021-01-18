@@ -6,22 +6,35 @@ import { GiCheckMark } from 'react-icons/gi';
 
 import { addToList, removeListItem } from '../../../actions/list_actions';
 import { listContains } from '../../../selectors/lists';
+import { maybeFetchQuotes } from '../../../actions/stock_actions';
 import './list-modal.scss';
 
 const mapStateToProps = (state, ownProps) => ({
   lists: state.entities.lists,
+  apiKey: state.settings.keys['iex'],
+  quotes: state.entities.quotes,
 });
 
 const mapDispatchToProps = (dispatch, { symbol }) => ({
-  addToList: (list) => dispatch(addToList(list, [symbol])),
+  addToList: (list, quotes, apiKey) => {
+    dispatch(addToList(list, [symbol]));
+    dispatch(maybeFetchQuotes([symbol], quotes, {}, apiKey));
+  },
   removeListItem: (list) => dispatch(removeListItem(list, symbol)),
 });
 
-const ListItem = ({ list, symbol, addToList, removeListItem }) => {
+const ListItem = ({
+  list,
+  symbol,
+  apiKey,
+  quotes,
+  addToList,
+  removeListItem,
+}) => {
   const isMember = listContains(list, symbol);
   const handleClick = () => {
     if (isMember) removeListItem(list);
-    else addToList(list);
+    else addToList(list, quotes, apiKey);
   };
   return (
     <div className="list-modal-item" onClick={handleClick}>

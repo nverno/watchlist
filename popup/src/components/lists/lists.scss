@@ -1,6 +1,4 @@
 .lists {
-  // background-color: var(--st__neutral-bg1);
-  // padding: 4px 24px 0px;  
   font-size: 16px;
 
   h4 {
@@ -15,7 +13,7 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-color: var(--st__neutral-bg3);
-    // padding: 0 10px 0 10px;
+    padding-right: 10px;
   }
 }
 
@@ -38,9 +36,7 @@
   width: 100%;
   padding-left: 10px;
   padding-right: 10px;
-  
-  /* border-top-style: solid; */
-  /* border-top-width: 1px; */
+
   border-bottom-style: solid;
   border-bottom-width: 0.5px;
   border-bottom-color: inherit;
@@ -49,7 +45,6 @@
 
 .list-header-cell {
   background-color: var(--st__neutral-hover-bg1);
-  /* border: none; */
 
   &:hover {
     *>button>* {

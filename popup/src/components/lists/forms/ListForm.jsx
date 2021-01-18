@@ -30,6 +30,7 @@ export const ListForm = ({ listName, action, cancel, errors }) => {
           value={name}
           placeholder="List Name"
           onChange={(e) => setName(e.currentTarget.value)}
+          autoFocus
         />
 
         <div className="list-form-controls">
