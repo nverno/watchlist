@@ -4,6 +4,7 @@ import {
   RECEIVE_LIST,
   REMOVE_LIST,
   RECEIVE_LISTS,
+  receiveListErrors,
 } from '../../actions/list_actions';
 import { getList } from '../../selectors/lists';
 

@@ -15,6 +15,8 @@ import {
   removeList,
   createList,
   receiveLists,
+  validateList,
+  receiveListErrors,
 } from '../../actions/list_actions';
 import './lists.scss';
 
@@ -26,6 +28,14 @@ const mapDispatchToProps = (dispatch) => ({
   removeList: (name) => dispatch(removeList(name)),
   createList: (name) => dispatch(createList(name)),
   updateLists: (lists) => dispatch(receiveLists(lists)),
+  validateList: (newList, lists) => {
+    let errors = validateList(newList, lists);
+    if (errors.length) {
+      dispatch(receiveListErrors(errors));
+      return false;
+    }
+    return true;
+  },
 });
 
 const DragHandle = SortableHandle(() => (
@@ -34,26 +44,39 @@ const DragHandle = SortableHandle(() => (
   </span>
 ));
 
-const SortableItem = SortableElement(({ name }) => (
-  <List name={name} handle={<DragHandle />} />
+const SortableItem = SortableElement(({ name, validate }) => (
+  <List name={name} handle={<DragHandle />} validate={validate} />
 ));
 
-const SortableList = SortableContainer(({ lists }) => {
+const SortableList = SortableContainer(({ lists, validate }) => {
   return (
     <div>
       {lists.map(({ name }, idx) => (
-        <SortableItem key={`list-item-${name}`} index={idx} name={name} />
+        <SortableItem
+          key={`list-item-${name}`}
+          index={idx}
+          name={name}
+          validate={validate}
+        />
       ))}
     </div>
   );
 });
 
-const Lists = ({ lists, removeList, createList, updateLists }) => {
+const Lists = ({
+  lists,
+  removeList,
+  createList,
+  updateLists,
+  validateList,
+}) => {
   const [formOpen, setFormOpen] = React.useState(false);
 
   const onSortEnd = ({ oldIndex, newIndex }) => {
     updateLists(arrayMove(lists, oldIndex, newIndex));
   };
+
+  const validate = (newList) => validateList(newList, lists);
 
   return (
     <>
@@ -79,7 +102,12 @@ const Lists = ({ lists, removeList, createList, updateLists }) => {
           />
         )}
 
-        <SortableList lists={lists} onSortEnd={onSortEnd} useDragHandle />
+        <SortableList
+          lists={lists}
+          validate={validate}
+          onSortEnd={onSortEnd}
+          useDragHandle
+        />
       </div>
     </>
   );
