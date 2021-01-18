@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "format": "prettier --write \"**/**/**/**/*.+(js|json|css)\"",
     "preinstall": "npm install --prefix popup",
     "start": "npm start --prefix popup"
   },
@@ -45,8 +48,5 @@
     "webpack": "^5.15.0",
     "webpack-cli": "^4.3.1"
   },
-  "dependencies": {
-    "moment": "^2.29.1",
-    "moment-timezone": "^0.5.32"
-  }
+  "dependencies": {}
 }
