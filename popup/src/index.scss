@@ -1,6 +1,19 @@
+@import-normalize;                                // PostCSS Normalize reset
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import './theme.scss';
 @import './font.scss';
+
+// running inside chrome extension
+.chrome-extension {
+  
+}
+// running as standalone website
+.standalone {
+  height: 100%;
+  // width: 400px;
+  margin: 0 auto;
+  padding: 10px 0 0 20px;
+}
 
 body {
   font-family: 'ClipperSoleil', sans-serif;
@@ -8,9 +21,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   // overflow: hidden;
-  height: 100%;
-  width: 400px;
-  margin: 0 auto;
   
   color: var(--st__neutral-fg1);
   background-color: var(--st__neutral-bg1);

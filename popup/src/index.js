@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadedState = {
       ...preloadedState,
       entities: {
-        stocks: JSON.parse(localStorage.getItem('stocks')) || {},
+        // stocks: JSON.parse(localStorage.getItem('stocks')) || {},
         lists: JSON.parse(localStorage.getItem('lists')) || [],
       },
       settings: {
@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     </Provider>,
     root
   );
+
+  if (process.env.REACT_APP_STANDALONE) {
+    document.getElementsByTagName('body')[0].className += 'standalone';
+  } else {
+    document.getElementsByTagName('body')[0].className += 'chrome-extension';
+  }
 
   // BEGIN testing
   window.store = store;
