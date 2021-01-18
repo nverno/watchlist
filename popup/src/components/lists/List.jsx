@@ -4,15 +4,14 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 
+import EditListForm from './EditListForm';
 import ListDropdown from './ListDropdown';
 import ListCell from './ListCell';
 import {
   closeList,
   openList,
   updateList,
-  clearListErrors,
   removeList,
-  renameList,
 } from '../../actions/list_actions';
 import { fetchQuotes } from '../../actions/stock_actions';
 import { getList } from '../../selectors/lists';
@@ -23,7 +22,6 @@ const mapStateToProps = (state, { name }) => {
     open: Boolean(state.ui.lists[name]),
     items: (lst && lst.items) || [],
     apiKey: state.settings.keys['iex'],
-    errors: state.errors.lists,
   };
 };
 
@@ -34,8 +32,6 @@ const mapDispatchToProps = (dispatch, { name }) => ({
     dispatch(fetchQuotes(symbols, params, apiKey)),
   updateList: (items) => dispatch(updateList({ name, items })),
   removeList: () => dispatch(removeList(name)),
-  renameList: (newName) => dispatch(renameList(name, newName)),
-  clearListErrors: () => dispatch(clearListErrors()),
 });
 
 const SortableItem = SortableElement(({ symbol }) => (
@@ -61,19 +57,15 @@ const List = ({
   closeList,
   updateList,
   fetchQuotes,
-  renameList,
   removeList,
   apiKey,
-  errors,
   validate,
-  clearListErrors,
 }) => {
   React.useEffect(() => {
     if (apiKey && open) fetchQuotes(items, {}, apiKey);
   }, []);
 
   const [editing, setEditing] = React.useState(false);
-  const [listName, setListName] = React.useState(name);
 
   if (!apiKey) {
     // FIXME: handle missing key- link to input
@@ -99,52 +91,20 @@ const List = ({
     updateList(arrayMove(items, oldIndex, newIndex));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (listName === name || validate(listName)) {
-      if (listName !== name) renameList(listName);
-      setEditing(false);
-      setListName('');
-      clearListErrors();
-    }
-  };
-
-  const renderErrors = () => {
-    if (!errors.length) return null;
-    return (
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx} className="error-message">
-            {error}
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
-  const editForm = (
-    <>
-      <div>
-        <form className="list-edit-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="input"
-            value={listName}
-            onChange={(e) => setListName(e.currentTarget.value)}
-            autoFocus
-          />
-        </form>
-        {renderErrors()}
-      </div>
-    </>
-  );
-
   return (
     <React.Fragment key={name}>
       <div className="list-item list-header-cell">
         <div className="list-title">
           {handle}
-          {editing ? editForm : <span>{name}</span>}
+          {editing ? (
+            <EditListForm
+              name={name}
+              validate={validate}
+              setEditing={setEditing}
+            />
+          ) : (
+            <span>{name}</span>
+          )}
         </div>
 
         <div className="list-controls">

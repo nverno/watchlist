@@ -13,6 +13,7 @@ import _ from 'lodash';
 import * as search from './actions/search_actions';
 import * as list from './actions/list_actions';
 import * as stocks from './actions/stock_actions';
+import moment from 'moment-timezone';
 // END testing
 
 var chrome;
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.list = list;
   window.stocks = stocks;
   window.loadSettings = loadSettings;
+  window.moment = moment;
   // END testing
 });
 

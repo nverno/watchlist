@@ -80,9 +80,8 @@ button, input, select, textarea {
 }
 
 .dropdown-item:hover {
-  color: var(--st__neutral-fg1);
+  color: var(--st__primary-hover);
   background-color: var(--st__neutral-hover-bg1);
-  fill: var(--st__neutral-hover-bg1);
 }
 
 .dropdown-item span {
