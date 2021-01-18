@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build --prefix popup",
+    "deploy": "gh-pages -d popup/build",
     "format": "prettier --write \"**/**/**/**/*.+(js|json|css)\"",
     "preinstall": "npm install --prefix popup",
     "start": "npm start --prefix popup"

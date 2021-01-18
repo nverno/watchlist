@@ -1,14 +1,14 @@
 /**
  * Search for companies/tickers
  */
-import _ from 'lodash';
+import { partition } from 'lodash';
 
 import * as AvAPI from './av_api';
 import * as IexAPI from './iex_api';
 import { splitByMatches } from './utils';
 
 export const formatSearchResults = (query, results) => {
-  const [stocks, funds] = _.partition(
+  const [stocks, funds] = partition(
     results.map(({ symbol, name, type, region }) => ({
       value: symbol,
       symbol: splitByMatches(query, symbol),

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { merge } from 'lodash';
 import { RECEIVE_API_KEYS } from '../actions/settings_actions';
 
 const _defaultState = {
@@ -11,7 +11,7 @@ export default (state = _defaultState, action) => {
   switch (action.type) {
     case RECEIVE_API_KEYS:
       let keys = Object.assign({}, state.keys);
-      return Object.assign({}, state, _.merge(keys, action.keys));
+      return Object.assign({}, state, merge(keys, action.keys));
 
     default:
       return state;

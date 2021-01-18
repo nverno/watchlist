@@ -9,11 +9,11 @@ import App from './components/App';
 import './index.scss';
 
 // BEGIN testing
-import _ from 'lodash';
 import * as search from './actions/search_actions';
 import * as list from './actions/list_actions';
 import * as stocks from './actions/stock_actions';
-import moment from 'moment-timezone';
+// import _ from 'lodash';
+// import moment from 'moment-timezone';
 // END testing
 
 var chrome;
@@ -26,13 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadedState = {
       ...preloadedState,
       entities: {
-        stocks: JSON.parse(localStorage.getItem('stocks')),
-        lists: JSON.parse(localStorage.getItem('lists')),
+        stocks: JSON.parse(localStorage.getItem('stocks')) || {},
+        lists: JSON.parse(localStorage.getItem('lists')) || [],
       },
       settings: {
-        keys: JSON.parse(localStorage.getItem('keys')),
+        keys: JSON.parse(localStorage.getItem('keys')) || {},
       },
-      ui: JSON.parse(localStorage.getItem('ui')),
+      ui: JSON.parse(localStorage.getItem('ui')) || {},
     };
   }
 
@@ -53,11 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // BEGIN testing
   window.store = store;
   window.search = search;
-  window._ = _;
   window.list = list;
   window.stocks = stocks;
   window.loadSettings = loadSettings;
-  window.moment = moment;
+  // window._ = _;
+  // window.moment = moment;
   // END testing
 });
 
