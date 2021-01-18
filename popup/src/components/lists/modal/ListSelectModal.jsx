@@ -7,6 +7,7 @@ import { GiCheckMark } from 'react-icons/gi';
 import { addToList, removeListItem } from '../../../actions/list_actions';
 import { listContains } from '../../../selectors/lists';
 import { maybeFetchQuotes } from '../../../actions/stock_actions';
+import { clearSearchResults } from '../../../actions/search_actions';
 import './list-modal.scss';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -21,6 +22,7 @@ const mapDispatchToProps = (dispatch, { symbol }) => ({
     dispatch(maybeFetchQuotes([symbol], quotes, {}, apiKey));
   },
   removeListItem: (list) => dispatch(removeListItem(list, symbol)),
+  clearSearchResults: () => dispatch(clearSearchResults()),
 });
 
 const ListItem = ({
@@ -59,7 +61,12 @@ const ListSelectModal = ({ symbol, lists, ...props }) => {
           className="add-symbol-icon"
         />
       </button>
-      <Modal isOpen={modal} toggle={toggle} className="list-modal">
+      <Modal
+        isOpen={modal}
+        toggle={toggle}
+        className="list-modal"
+        onClosed={() => props.clearSearchResults()}
+      >
         <ModalHeader
           toggle={toggle}
         >{`Click List to add ${symbol}`}</ModalHeader>
