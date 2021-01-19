@@ -28,7 +28,7 @@ const StandAlone = ({ settings, ...props }) => {
           <p>Some page with the sidebar opened at the right.</p>
           <br />
           <div className={styles.settings}>
-            <div>{toggle}</div>
+            <div>{iex && toggle}</div>
             {(!iex || showControls) && <SettingsForm />}
           </div>
         </div>
