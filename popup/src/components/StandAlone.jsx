@@ -29,7 +29,7 @@ const StandAlone = ({ settings, ...props }) => {
           <br />
           <div className={styles.settings}>
             <div>{toggle}</div>
-            {!iex || (showControls && <SettingsForm />)}
+            {(!iex || showControls) && <SettingsForm />}
           </div>
         </div>
       </Col>
