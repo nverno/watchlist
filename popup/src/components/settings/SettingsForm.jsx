@@ -22,7 +22,6 @@ const SettingsForm = ({ apiKeys, receiveApiKeys }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (iexKey.length === 0 && avKey.length === 0) return;
-    console.log('here');
     let keys = {};
     if (iexKey.length) keys['iex'] = iexKey;
     if (avKey.length) keys['av'] = avKey;
