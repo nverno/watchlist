@@ -26,7 +26,7 @@ const SettingsForm = ({ apiKeys, receiveApiKeys }) => {
     let keys = {};
     if (iexKey.length) keys['iex'] = iexKey;
     if (avKey.length) keys['av'] = avKey;
-    receiveApiKeys(keys);
+    receiveApiKeys({ keys });
     setSuccess(true);
     setTimeout(() => {
       setSuccess(false);
