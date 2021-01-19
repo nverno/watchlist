@@ -3,25 +3,16 @@
   color: var(--st__neutral-bg1);
   margin: 0;
   padding: 0 10px 0 0;
-  display: flex;
-  align-items: center;
   min-height: 900px;
-
-  p {
-    margin: 0 auto;
-    font-size: 16px;
-  }
+  // display: flex;
+  // align-items: center;
 }
 
 .main {
+  padding: 60px 0 0 20px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  p {
-    font-size: 16px;
-  }
+  font-size: 16px;
+  // text-align: center;
 }
 
 .panel {
@@ -29,4 +20,10 @@
   color: var(--st__neutral-fg1);
   box-shadow: 0px 2px 6px 0 var(--st__neutral-bg2);
   padding-bottom: 20px;
+  margin: 10px 0 50px;
+  text-align: center;
+}
+
+.settings {
+  display: block;
 }

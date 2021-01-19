@@ -1,15 +1,36 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
-import styles from './standalone.module.scss';
+import { connect } from 'react-redux';
+import { Row, Col, Button } from 'reactstrap';
 
-const StandAlone = (props) => {
+import styles from './standalone.module.scss';
+import SettingsForm from './settings/SettingsForm';
+
+const mapStateToProps = (state) => ({
+  settings: state.settings,
+});
+
+const StandAlone = ({ settings, ...props }) => {
+  const [showControls, setShowControls] = React.useState(false);
+  const {
+    keys: { iex },
+  } = settings;
+
+  const toggle = (
+    <Button onClick={() => setShowControls(!showControls)}>
+      {showControls ? 'Hide Settings' : 'Change Settings'}
+    </Button>
+  );
+
   return (
     <Row className={styles.body}>
       <Col md={8} className={styles.main}>
         <div>
           <p>Some page with the sidebar opened at the right.</p>
           <br />
-          <p>Need to add iex API key to have access to stock data.</p>
+          <div className={styles.settings}>
+            <div>{toggle}</div>
+            {!iex || (showControls && <SettingsForm />)}
+          </div>
         </div>
       </Col>
       <Col md={4} className={styles.panel}>
@@ -20,4 +41,4 @@ const StandAlone = (props) => {
   );
 };
 
-export default StandAlone;
+export default connect(mapStateToProps)(StandAlone);
